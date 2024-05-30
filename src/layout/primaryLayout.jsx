@@ -7,7 +7,7 @@ function PrimaryLayout() {
   return (
     <>
       <Header />
-      <div class="container px-6 py-8 mx-auto lg:flex lg:-mx-2">
+      <div class="flex">
       <SideBar/>
       <Outlet />
       </div>

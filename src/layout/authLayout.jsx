@@ -14,6 +14,7 @@ function AuthLayout() {
         </div>
         <div className="w-full md:w-1/2">
           <Outlet />
+  
         </div>
       </div>
     </>

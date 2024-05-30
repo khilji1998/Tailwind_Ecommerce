@@ -1,19 +1,22 @@
 
 import { useContext } from "react";
-import DisplayProduct from "../displayProduct";
+import DisplayCard from "../ProductCard";
 import { GlobalContext } from "../../../context/globalState";
+
 function Products() {
     const {products} = useContext(GlobalContext)
+
   return (
     <>
-        <div className="flex flex-wrap lg:w-4/5">
-          {products?.map((product, index) => (
+        <div className="flex flex-wrap gap-8 justify-center my-4 mx-4 ">
+          {products?.map((product) => (
             <>
               <div
-                key={index}
-                className="px-[8px] w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/4 shover:scale-110 transition duration-300"
+                key={product.id}
+                className="px-[8px] my-4 w-full sm:w-full md:w-1/3 lg:w-1/4 xl:w-1/5 hover:scale-110 transition duration-300"
+            
               >
-                <DisplayProduct product={product} />
+                <DisplayCard product={product} />
               </div>
             </>
           ))}

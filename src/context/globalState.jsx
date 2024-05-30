@@ -5,7 +5,7 @@ export const GlobalContext = createContext();
 export const GlobalProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([])
-  const [getsingleproduct, setgetSingleproduct]= useState(null)
+  const [getsingleproduct, setgetSingleproduct]= useState([])
   const [loading ,setLoading]= useState(true)
   const getProducts = () => {
     axios.get('https://fakestoreapi.com/products')
