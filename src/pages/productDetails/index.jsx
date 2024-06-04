@@ -132,12 +132,12 @@ function ProductDetails() {
                     </span>
                   </button>
                 </div>
-                 <Quantity quantity={currentQuanity} id={id}/>
+                 <Quantity  id={id}/>
               </div>
             </div>
           </div>
         </div>
-        {open && <ProductCart quantity={quantity} id={id} />}
+        {open && <ProductCart quantity={currentQuanity} id={id} />}
       </section>
     </>
   );

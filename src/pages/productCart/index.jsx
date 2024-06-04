@@ -4,8 +4,8 @@ import { useContext } from "react";
 import { FaCross, FaTimes } from "react-icons/fa";
 import Quantity from "../../components/quantity";
 
-const ProductCart = ({ quantity , id }) => {
-  const { open, setOpen, cartData, setcount, setCartData, count } =
+const ProductCart = ({ id }) => {
+  const { open, setOpen, cartData, setcount, setCartData, count , quantity } =
     useContext(GlobalContext);
   const handlecloseICon = () => {
     setOpen(false);
@@ -19,9 +19,12 @@ const ProductCart = ({ quantity , id }) => {
     <>
       <div className="fixed inset-0 bg-gray-500 bg-opacity-75 overflow-hidden">
         <div className="fixed inset-y-0 right-0 w-[500px] p-2 flex-1 overflow-y-auto px-4 py-6 sm:px-6 flex h-full flex-col  bg-white shadow-xl">
-              <button  className="ml-3 flex h-7 items-center" onClick={handlecloseICon}>
-                <FaTimes />
-              </button>
+          <button
+            className="ml-3 flex h-7 items-center"
+            onClick={handlecloseICon}
+          >
+            <FaTimes />
+          </button>
           <ul className="mt-2">
             {cartData
               .reduce((acc, item) => {
@@ -56,9 +59,8 @@ const ProductCart = ({ quantity , id }) => {
                         <p className="text-gray-500 font-bold mr-2">
                           Qty {quantity[item.id]}
                         </p>
-                        <Quantity quantity={currentQuanity} id={item.id} />
+                        <Quantity quantity={quantity} id={item.id} />
                       </div>
-
                       <div className="flex">
                         <button
                           type="button"
@@ -73,6 +75,9 @@ const ProductCart = ({ quantity , id }) => {
                 </li>
               ))}
           </ul>
+          <div className="flex justify-end items-center h-full">
+            <p className="absolute bottom-10 left-5 font-bold text-2xl">Total: </p>
+          </div>
         </div>
       </div>
     </>
