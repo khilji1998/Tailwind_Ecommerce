@@ -3,7 +3,7 @@ import Products from './products'
 
 function Home() {
   return (
-    <Products/>
+    <Products  />
   )
 }
 

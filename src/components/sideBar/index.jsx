@@ -9,7 +9,7 @@ function SideBar() {
     getCategories();
  
   }, []);
- 
+  
 
    const handleGetData = (category) => {
     getCatogoryData(category);
@@ -33,7 +33,7 @@ function SideBar() {
 
   return (
     <>
-        <div className={`fixed top-0 bottom-0 min-h-screen bg-clip-border rounded-sm bg-white text-gray-700 p-4 shadow-xl ${Open ? "w-72" : "w-20" } duration-300 relative`}>
+        <div className={`fixed min-h-screen bg-clip-border rounded-sm bg-white text-gray-700 p-4 shadow-xl ${Open ? "w-72" : "w-20" } duration-300 relative`}>
           <FaArrowLeft className={`bg-gray-700 text-white text-2xl rounded-full absolute -right-1 top-4 border-white cursor-pointer ${!Open && "rotate-180"}`} onClick={()=>setOpen(!Open)}/>
         <div className="mb-2 p-4">
           <h5 className={`block antialiased tracking-normal font-sans text-xl font-semibold leading-snug text-gray-900 font-header-family ${!Open && 'scale-0'}`} >
@@ -52,7 +52,7 @@ function SideBar() {
              
                 {getCategoryIcon(item)}
             
-              <button className={`ml-2 ${!Open && 'scale-0 hover'}`} onClick={() => handleGetData(item)}>{item}</button>
+              <button className={`ml-2 ${!Open && 'scale-0 hover'}`} onClick={() => handleGetData(item)}>{item.charAt(0).toUpperCase()+item.slice(1)}</button>
             </div>
           ))}
         

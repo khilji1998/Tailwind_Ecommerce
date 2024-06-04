@@ -1,11 +1,15 @@
-import {Link}  from 'react-router-dom'
+import { Link } from "react-router-dom";
+import { FaShoppingCart } from "react-icons/fa";
+import { useContext } from "react";
+import { GlobalContext } from "../../context/globalState";
 function Header() {
+  const { count ,open , setOpen } = useContext(GlobalContext);
   return (
-<>
-<header class="bg-black lg:px-16  px-4 flex text-white flex-wrap items-center py-4 shadow-md">
+    <>
+      <header class="bg-black lg:px-16  px-4 flex text-white flex-wrap items-center py-4 shadow-md">
         <div class="flex-1 flex justify-between items-center">
           <a href="#" class="text-xl font-bold">
-          FashVibe
+            FashVibe
           </a>
         </div>
 
@@ -21,21 +25,27 @@ function Header() {
                 </Link>
               </li>
               <li>
-                <Link class="md:p-4 py-3 px-0 block" to="about">
-                  About Us
-                </Link>
-              </li>
-              <li>
                 <Link class="md:p-4 py-3 px-0 block md:mb-0 mb-2" to="contact">
                   Contact Us
+                </Link>
+              </li>
+              <li className="flex justify-center items-center">
+                <Link className="flex items-center p-4" to="#">
+                  <FaShoppingCart className="w-[30px] h-[35px]" onClick={()=>setOpen(!open)} />
+                  <div className="flex flex-col items-center">
+                    <span className="bg-white text-black w-7 rounded-md text-center ml-1">
+                      {count}
+                    </span>
+                    <b className="ml-1">Cart</b>
+                  </div>
                 </Link>
               </li>
             </ul>
           </nav>
         </div>
       </header>
-</>
-  )
+    </>
+  );
 }
 
-export default Header
+export default Header;

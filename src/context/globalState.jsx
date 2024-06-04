@@ -4,9 +4,12 @@ export const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([])
-  const [getsingleproduct, setgetSingleproduct]= useState([])
-  const [loading ,setLoading]= useState(true)
+  const [categories, setCategories] = useState([]);
+  const [getsingleproduct, setgetSingleproduct]= useState([]);
+  const [loading ,setLoading]= useState(true);
+  const [cartData, setCartData] = useState([]);
+  const [open , setOpen] = useState(false);
+  const [count, setcount]= useState(0);
   const getProducts = () => {
     axios.get('https://fakestoreapi.com/products')
       .then(res => {
@@ -21,7 +24,7 @@ export const GlobalProvider = ({ children }) => {
   const getCategories = () => {
     axios.get('https://fakestoreapi.com/products/categories')
       .then(res => {
-        
+
         setCategories(res.data);
         setLoading(false);
       })
@@ -54,6 +57,7 @@ export const GlobalProvider = ({ children }) => {
       });
   };
 
+
   const Loading=()=>{
     return(
     <div class="flex items-center justify-center min-h-screen p-5 bg-gray-100 min-w-screen">
@@ -71,7 +75,7 @@ export const GlobalProvider = ({ children }) => {
   }, []);
 
   return (
-    <GlobalContext.Provider value={{ products, categories, getCatogoryData, getProducts, getCategories, getSingleProductData, getsingleproduct, Loading}}>
+    <GlobalContext.Provider value={{ products, categories, getCatogoryData, getProducts, getCategories, getSingleProductData, getsingleproduct, Loading , open ,setOpen,cartData,setCartData,count,setcount }}>
       {loading ? Loading() : children}
     </GlobalContext.Provider>
   );
