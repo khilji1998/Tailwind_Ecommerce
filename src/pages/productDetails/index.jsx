@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { GlobalContext } from "../../context/globalState";
 import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaMinus, FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import ProductCart from "../productCart";
+import Quantity from "../../components/quantity";
 function ProductDetails() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -19,6 +20,8 @@ function ProductDetails() {
     setCartData,
     count,
     setcount,
+    quantity,
+    setQuantity,
   } = useContext(GlobalContext);
   useEffect(() => {
     getSingleProductData(id);
@@ -33,10 +36,18 @@ function ProductDetails() {
     navigate(`/product/${prevId}`);
   };
   const handlecartdata = (id) => {
+    if (recordItem.includes(id)) {
+      return;
+    }
     setcount((prev) => prev + 1);
     setCartData([...cartData, getsingleproduct]);
     setRecordItem((prev) => [...prev, id]);
+    setQuantity((prevQuantities) => ({
+      ...prevQuantities,
+      [id]: (prevQuantities[id] || 0) + 1,
+    }));
   };
+  const currentQuanity = quantity[id] || 0;
   return (
     <>
       <div className="flex justify-around mt-2 text-3xl">
@@ -52,7 +63,7 @@ function ProductDetails() {
               class="lg:w-1/2 w-full object-cover object-center"
               src={getsingleproduct.image}
             />
-            <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+            <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6  mt-6 lg:mt-0">
               <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">
                 {getsingleproduct.title}
               </h1>
@@ -102,16 +113,11 @@ function ProductDetails() {
                   </div>
                 </div>
               </div>
-              <div class="flex justify-between">
-                <span class="title-font font-medium text-2xl text-gray-900">
+              <div class="flex">
+                <span class="title-font font-medium text-2xl text-gray-900 mr-3">
                   {getsingleproduct.price}$
                 </span>
-                <div className="flex rounded-[20px]  bg-gray-800  ">
-                  {recordItem.includes(id) && (
-                    <button className="w-9 font-medium tracking-wide text-white duration-200 transform  hover:bg-gray-700 hover:rounded-[20px] focus:outline-none focus:bg-gray-700" >
-                      -
-                    </button>
-                  )}
+                <div className="flex rounded-[20px]  bg-gray-800 mr-3 ">
                   <button className=" w-[250px] flex items-center justify-center rounded-md px-2 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-800  hover:bg-gray-700">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -122,25 +128,16 @@ function ProductDetails() {
                       <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
                     </svg>
                     <span className={`mx-1`} onClick={() => handlecartdata(id)}>
-                      {recordItem.includes(id)
-                        ? `${count} Added`
-                        : "Add to cart"}
+                      {recordItem.includes(id) ? `Added` : "Add to cart"}
                     </span>
                   </button>
-                  {recordItem.includes(id) && (
-                    <button
-                      className="w-9 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform  hover:bg-gray-700 hover:rounded-[20px]"
-                      onClick={() => handlecartdata(id)}
-                    >
-                      +
-                    </button>
-                  )}
                 </div>
+                 <Quantity quantity={currentQuanity} id={id}/>
               </div>
             </div>
           </div>
         </div>
-        {open && <ProductCart />}
+        {open && <ProductCart quantity={quantity} id={id} />}
       </section>
     </>
   );

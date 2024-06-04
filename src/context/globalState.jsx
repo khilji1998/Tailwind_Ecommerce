@@ -10,6 +10,7 @@ export const GlobalProvider = ({ children }) => {
   const [cartData, setCartData] = useState([]);
   const [open , setOpen] = useState(false);
   const [count, setcount]= useState(0);
+  const [quantity, setQuantity] = useState({});
   const getProducts = () => {
     axios.get('https://fakestoreapi.com/products')
       .then(res => {
@@ -56,6 +57,18 @@ export const GlobalProvider = ({ children }) => {
         setLoading(false);
       });
   };
+  const handleIncreaseQuantity = (id) => {
+    setQuantity((prevQuantities) => ({
+      ...prevQuantities,
+      [id]: (prevQuantities[id] || 0) + 1,
+    }));
+  };
+  const handleDecreaseQuantity = (id) => {
+    setQuantity((prevQuantities) => ({
+      ...prevQuantities,
+      [id]: Math.max((prevQuantities[id] || 0) - 1, 0),
+    }));
+  };
 
 
   const Loading=()=>{
@@ -75,7 +88,7 @@ export const GlobalProvider = ({ children }) => {
   }, []);
 
   return (
-    <GlobalContext.Provider value={{ products, categories, getCatogoryData, getProducts, getCategories, getSingleProductData, getsingleproduct, Loading , open ,setOpen,cartData,setCartData,count,setcount }}>
+    <GlobalContext.Provider value={{ products, categories, getCatogoryData, getProducts, getCategories, getSingleProductData, getsingleproduct, Loading , open ,setOpen,cartData,setCartData,count,setcount ,handleIncreaseQuantity , handleDecreaseQuantity , quantity , setQuantity}}>
       {loading ? Loading() : children}
     </GlobalContext.Provider>
   );
