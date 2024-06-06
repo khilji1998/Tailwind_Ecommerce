@@ -12,20 +12,22 @@ import NotFound from "../pages/notFound";
 import ProductDetails from "../pages/productDetails";
 import SecondaryLayout from "../layout/secondaryLayout";
 import Home from "../pages/home";
+import { ProtectedRoute } from "./protectedRoutes";
 function Routes() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
-        <Route path="/" element={<PrimaryLayout />}>
-          <Route path="/" element={<Home />} />
-        </Route>
-        <Route path="/" element={<SecondaryLayout />}>
-          <Route path="/product/:id" element={<ProductDetails />} />
-        </Route>
-        <Route path="/" element={<AuthLayout />}>
-          <Route path="/signup" element={<SignUp />} />
+       <Route path="/" element={<AuthLayout />}>
+          <Route path="/" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
         </Route>
+        <Route path="/" element={<PrimaryLayout />}>
+          <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        </Route>
+        <Route path="/" element={<SecondaryLayout />}>
+          <Route path="/product/:id" element={<ProtectedRoute><ProductDetails /></ProtectedRoute>} />
+        </Route>
+       
         <Route path="*" element={<NotFound />} />
       </>
     )

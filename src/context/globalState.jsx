@@ -1,7 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 export const GlobalContext = createContext();
-
 export const GlobalProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
