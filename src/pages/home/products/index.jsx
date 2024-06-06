@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import DisplayCard from "../ProductCard";
 import { GlobalContext } from "../../../context/globalState";
-import ProductCart from "../../productCart";
+import ProductCart from "../../productDetails/productCart";
 
 function Products() {
   const { products ,open} = useContext(GlobalContext);

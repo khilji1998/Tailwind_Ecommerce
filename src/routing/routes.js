@@ -13,6 +13,7 @@ import ProductDetails from "../pages/productDetails";
 import SecondaryLayout from "../layout/secondaryLayout";
 import Home from "../pages/home";
 import { ProtectedRoute } from "./protectedRoutes";
+import { CheckOut } from "../pages/checkOut";
 function Routes() {
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -26,6 +27,7 @@ function Routes() {
         </Route>
         <Route path="/" element={<SecondaryLayout />}>
           <Route path="/product/:id" element={<ProtectedRoute><ProductDetails /></ProtectedRoute>} />
+          <Route path="/checkout" element={<ProtectedRoute><CheckOut /></ProtectedRoute>}/>
         </Route>
        
         <Route path="*" element={<NotFound />} />

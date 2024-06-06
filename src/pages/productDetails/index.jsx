@@ -4,7 +4,7 @@ import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight, FaMinus, FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import ProductCart from "../productCart";
+import ProductCart from "./productCart";
 import Quantity from "../../components/quantity";
 function ProductDetails() {
   const navigate = useNavigate();

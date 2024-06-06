@@ -1,11 +1,13 @@
 import React from "react";
-import { GlobalContext } from "../../context/globalState";
+import { GlobalContext } from "../../../context/globalState";
 import { useContext } from "react";
 import { FaTimes } from "react-icons/fa";
-import Quantity from "../../components/quantity";
+import Quantity from "../../../components/quantity";
 import { FaCircleRight } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const ProductCart = () => {
+  const navigate = useNavigate();
   const { setOpen, cartData, setcount, setCartData, quantity } =
     useContext(GlobalContext);
   const handlecloseICon = () => {
@@ -15,18 +17,21 @@ const ProductCart = () => {
     setcount((prev) => prev - 1);
     setCartData(cartData.filter((item) => item.id !== id));
   };
+  const handleCheckout = () => {
+    setOpen(false);
+    navigate("/checkout");
+  };
   return (
     <>
       <div className="fixed inset-0 bg-gray-500 bg-opacity-75 ">
         <div className="absolute right-0 h-screen flex flex-col justify-between w-[500px] px-4 py-6 bg-white shadow-xl">
-       
           <div className="min-h-[300px] max-h-[650px] mt-2 overflow-auto">
-          <button 
-            className="ml-3 flex h-7 items-center"
-            onClick={handlecloseICon}
-          >
-            <FaTimes />
-          </button>
+            <button
+              className="ml-3 flex h-7 items-center"
+              onClick={handlecloseICon}
+            >
+              <FaTimes />
+            </button>
             <ul>
               {cartData
                 .reduce((acc, item) => {
@@ -93,11 +98,13 @@ const ProductCart = () => {
                 $
               </span>
             </p>
-            <button className="absolute bottom-0 left-2 flex justify-center items-center w-full font-bold text-center text-white rounded-md px-2 py-2 duration-200 bg-gray-800 hover:bg-gray-700">
-            Checking Out <FaCircleRight className="ms-2" />
-          </button>
+            <button
+              className="absolute bottom-0 left-2 flex justify-center items-center w-full font-bold text-center text-white rounded-md px-2 py-2 duration-200 bg-gray-800 hover:bg-gray-700"
+              onClick={handleCheckout}
+            >
+              Checking Out <FaCircleRight className="ms-2" />
+            </button>
           </div>
-        
         </div>
       </div>
     </>
