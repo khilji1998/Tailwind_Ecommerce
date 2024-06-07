@@ -18,6 +18,10 @@ const ProductCart = () => {
     setCartData(cartData.filter((item) => item.id !== id));
   };
   const handleCheckout = () => {
+    if(cartData == '')
+      {
+        return
+      }
     setOpen(false);
     navigate("/checkout");
   };
