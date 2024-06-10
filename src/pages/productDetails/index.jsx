@@ -42,10 +42,20 @@ function ProductDetails() {
     setcount((prev) => prev + 1);
     setCartData([...cartData, getsingleproduct]);
     setRecordItem((prev) => [...prev, id]);
-    setQuantity((prevQuantities) => ({
-      ...prevQuantities,
-      [id]: (prevQuantities[id] || 0) + 1,
-    }));
+    if(quantity >= 1)
+      {
+        setQuantity((prevQuantities) => ({
+          ...prevQuantities,
+          [id]: (prevQuantities[id] || 0),
+        }));
+      }
+      else{
+        setQuantity((prevQuantities) => ({
+          ...prevQuantities,
+          [id]: (prevQuantities[id] || 0 + 1),
+        }));
+      }
+      setOpen(true)
   };
   const currentQuanity = quantity[id] || 0;
   return (

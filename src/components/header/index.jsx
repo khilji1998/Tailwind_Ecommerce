@@ -5,23 +5,20 @@ import { GlobalContext } from "../../context/globalState";
 function Header() {
   const { count, open, setOpen } = useContext(GlobalContext);
   const navigate = useNavigate();
-  const handleLogout = () =>{
-     localStorage.removeItem("loggedin");
-     navigate('/signin');
-  }
+  const handleLogout = () => {
+    localStorage.removeItem("loggedin");
+    navigate("/signin");
+  };
   return (
     <>
-      <header class="bg-black lg:px-16  px-4 flex text-white flex-wrap items-center py-4 shadow-md">
+      <header class="bg-black lg:px-12 px-4 flex text-white flex-wrap items-center shadow-md ">
         <div class="flex-1 flex justify-between items-center">
           <a href="#" class="text-xl font-bold">
             FashVibe
           </a>
         </div>
 
-        <div
-          class="hidden md:flex md:items-center md:w-auto  w-full "
-          id="menu"
-        >
+        <div class="hidden md:flex md:items-center md:w-auto w-full" id="menu">
           <nav>
             <ul class="md:flex items-center justify-between text-base text-white pt-4 md:pt-0">
               <li>
@@ -51,7 +48,12 @@ function Header() {
               <li>
                 <div className="flex justify-center items-center ">
                   <FaUser className="w-[20px] h-[35px]" />{" "}
-                  <span className=" ml-2 font-medium text-[18px]" onClick={handleLogout}>Logout</span>
+                  <span
+                    className=" ml-2 font-medium text-[18px]"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </span>
                 </div>
               </li>
             </ul>

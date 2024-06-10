@@ -39,10 +39,10 @@ function SideBar() {
 
   return (
     <>
-        <div className={`fixed min-h-screen bg-clip-border rounded-sm bg-white text-gray-700 p-4 shadow-xl ${Open ? "w-72" : "w-20" } duration-300 relative `}>
+        <div className={`min-h-screen bg-clip-border rounded-sm bg-white text-gray-700 p-4 shadow-xl ${Open ? "w-72" : "w-20" } duration-300 relative z-0 `}>
           <FaArrowLeft className={`bg-gray-700 text-white text-2xl rounded-full absolute -right-1 top-4 border-white cursor-pointer ${!Open && "rotate-180"}`} onClick={()=>setOpen(!Open)}/>
         <div className="mb-2 p-4">
-          <h5 className={`block antialiased tracking-normal font-sans text-xl font-semibold leading-snug text-gray-900 font-header-family ${!Open && 'scale-0'}`} >
+          <h5 className={`font-sans text-xl font-semibold leading-snug text-gray-900 font-header-family ${!Open && 'scale-0'}`} >
             Categories 
           </h5>
         </div>

@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 export const GlobalContext = createContext();
 export const GlobalProvider = ({ children }) => {
+  const [billFormData, setBillFormData] = useState([]);
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [getsingleproduct, setgetSingleproduct]= useState([]);
@@ -68,8 +69,6 @@ export const GlobalProvider = ({ children }) => {
       [id]: Math.max((prevQuantities[id] || 0) - 1, 0),
     }));
   };
-
-
   const Loading=()=>{
     return(
     <div class="flex items-center justify-center min-h-screen p-5 bg-gray-100 min-w-screen">
@@ -81,13 +80,25 @@ export const GlobalProvider = ({ children }) => {
     </div>
     )
   }
+  const [isBillModalOpen, setIsBillModalOpen] = useState(false);
 
+  const toggleModal = () => {
+    setIsBillModalOpen(!isBillModalOpen);
+  };
   useEffect(() => {
     getProducts();
   }, []);
 
+  const calculateTotalPrice = () =>{
+    return cartData
+      .reduce(
+        (total, item) => total + item.price * quantity[item.id],
+        0
+      )
+      .toFixed(2)}
+  
   return (
-    <GlobalContext.Provider value={{ products, categories, getCatogoryData, getProducts, getCategories, getSingleProductData, getsingleproduct, Loading , open ,setOpen,cartData,setCartData,count,setcount ,handleIncreaseQuantity , handleDecreaseQuantity , quantity , setQuantity}}>
+    <GlobalContext.Provider value={{ products, categories, getCatogoryData, getProducts, getCategories, getSingleProductData, getsingleproduct, Loading , open ,setOpen,cartData,setCartData,count,setcount ,handleIncreaseQuantity , handleDecreaseQuantity , quantity , setQuantity , calculateTotalPrice,toggleModal,isBillModalOpen,setIsBillModalOpen,billFormData,setBillFormData}}>
       {loading ? Loading() : children}
     </GlobalContext.Provider>
   );

@@ -9,8 +9,15 @@ export const AuthProvider = ({ children }) => {
   function handleLoginSuccess() {
     setIsLoggedIn(true);
   }
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+
+  });
+
   return (
-    <AuthContext.Provider value={{handleRegistrationSuccess , handleLoginSuccess}}>
+    <AuthContext.Provider value={{handleRegistrationSuccess , handleLoginSuccess,formData,setFormData}}>
       {children}
     </AuthContext.Provider>
   );

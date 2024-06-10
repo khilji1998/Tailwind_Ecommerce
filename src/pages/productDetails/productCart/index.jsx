@@ -8,21 +8,33 @@ import { useNavigate } from "react-router-dom";
 
 const ProductCart = () => {
   const navigate = useNavigate();
-  const { setOpen, cartData, setcount, setCartData, quantity } =
-    useContext(GlobalContext);
+  const {
+    setOpen,
+    cartData,
+    setcount,
+    setCartData,
+    quantity,
+    calculateTotalPrice,
+    setQuantity,
+  } = useContext(GlobalContext);
   const handlecloseICon = () => {
     setOpen(false);
   };
   const handleRemoveItem = (id) => {
     setcount((prev) => prev - 1);
     setCartData(cartData.filter((item) => item.id !== id));
+    setQuantity((prevQuantites)=>{
+      const{[id]:__, ...newQuantity} = prevQuantites
+      return newQuantity
+    })
+  
   };
   const handleCheckout = () => {
-    if(cartData == '')
-      {
-        return
-      }
+    if (cartData == "") {
+      return;
+    }
     setOpen(false);
+
     navigate("/checkout");
   };
   return (
@@ -93,13 +105,7 @@ const ProductCart = () => {
             <p className="w-full absolute bottom-[50px] left-2 font-bold text-2xl text-black">
               Total:{" "}
               <span className="text-black float-right">
-                {cartData
-                  .reduce(
-                    (total, item) => total + item.price * quantity[item.id],
-                    0
-                  )
-                  .toFixed(2)}
-                $
+                ${calculateTotalPrice()}
               </span>
             </p>
             <button
